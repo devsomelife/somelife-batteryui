@@ -1,0 +1,18 @@
+[package]
+name = "battery-tui"
+version = "0.1.0"
+edition = "2021"
+description = "A 100% terminal battery monitor for Linux (sysfs-based, glances-like TUI)"
+
+[[bin]]
+name = "battery-tui"
+path = "src/main.rs"
+
+[dependencies]
+ratatui = "0.26"
+crossterm = "0.27"
+anyhow = "1"
+
+[profile.release]
+strip = true
+lto = true
