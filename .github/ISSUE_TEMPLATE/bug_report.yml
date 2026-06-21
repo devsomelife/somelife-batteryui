@@ -20,7 +20,7 @@ body:
     attributes:
       label: Steps to reproduce
       placeholder: |
-        1. Run `battery-tui -i 1`
+        1. Run `some-batteryui -i 1`
         2. Press `2` to open History
         3. ...
     validations:
@@ -29,8 +29,8 @@ body:
     id: version
     attributes:
       label: Version
-      description: Output of `battery-tui --version`.
-      placeholder: battery-tui 0.1.0
+      description: Output of `some-batteryui --version`.
+      placeholder: some-batteryui 0.1.0
     validations:
       required: true
   - type: dropdown
@@ -50,7 +50,7 @@ body:
       description: |
         Please paste the output of these commands. They reveal which sysfs fields your hardware exposes.
       value: |
-        <!-- output of: battery-tui --list -->
+        <!-- output of: some-batteryui --list -->
 
         <!-- output of: cat /sys/class/power_supply/BAT*/uevent -->
       render: shell

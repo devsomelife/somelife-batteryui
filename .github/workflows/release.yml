@@ -29,15 +29,15 @@ jobs:
 
       - name: Stage binary artifact
         run: |
-          cp target/x86_64-unknown-linux-musl/release/battery-tui battery-tui-x86_64-linux
-          sha256sum battery-tui-x86_64-linux > battery-tui-x86_64-linux.sha256
+          cp target/x86_64-unknown-linux-musl/release/some-batteryui some-batteryui-x86_64-linux
+          sha256sum some-batteryui-x86_64-linux > some-batteryui-x86_64-linux.sha256
 
       - name: Build .deb package
         run: |
           cargo install cargo-deb --locked
           # cargo-deb reads assets from target/release; reuse the musl binary there.
           mkdir -p target/release
-          cp target/x86_64-unknown-linux-musl/release/battery-tui target/release/battery-tui
+          cp target/x86_64-unknown-linux-musl/release/some-batteryui target/release/some-batteryui
           cargo deb --no-build --output target/debian/
 
       - name: Collect .deb
@@ -47,7 +47,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            battery-tui-x86_64-linux
-            battery-tui-x86_64-linux.sha256
+            some-batteryui-x86_64-linux
+            some-batteryui-x86_64-linux.sha256
             *.deb
           generate_release_notes: true

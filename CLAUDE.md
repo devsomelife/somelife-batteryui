@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-`battery-tui` — a terminal battery monitor for Linux (Debian), in the spirit of `glances`/`top`. Reads `/sys/class/power_supply` directly. No `upower`, no D-Bus, no root, no persistence. History lives in memory for the session only.
+`Some-BatteryUI` — a terminal battery monitor for Linux (Debian), in the spirit of `glances`/`top`. Reads `/sys/class/power_supply` directly. No `upower`, no D-Bus, no root, no persistence. History lives in memory for the session only.
 
 ## Commands
 
@@ -15,15 +15,15 @@ Requires a Rust toolchain newer than the system's. It was installed via rustup; 
 ```
 
 - Build: `cargo build` (debug) / `cargo build --release`
-- Run: `cargo run --release` or `./target/release/battery-tui`
+- Run: `cargo run --release` or `./target/release/some-batteryui`
 - The TUI needs a real terminal (alternate screen). Don't run it through a pipe — it won't render and key input won't reach it.
 
 Before pushing, match what CI enforces (it fails on either): `cargo fmt --check` and `cargo clippy --all-targets -- -D warnings`. Run `cargo fmt` to fix formatting.
 
 Non-interactive paths useful for smoke-testing without a TTY:
-- `./target/release/battery-tui --list` — lists batteries, exits
-- `./target/release/battery-tui --help`
-- A short pty run to confirm it samples and exits cleanly: `script -qec "./target/release/battery-tui -i 1" /dev/null` (Ctrl-C to stop).
+- `./target/release/some-batteryui --list` — lists batteries, exits
+- `./target/release/some-batteryui --help`
+- A short pty run to confirm it samples and exits cleanly: `script -qec "./target/release/some-batteryui -i 1" /dev/null` (Ctrl-C to stop).
 
 No test suite exists yet.
 

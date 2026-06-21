@@ -1,10 +1,10 @@
-# Contributing to battery-tui
+# Contributing to Some-BatteryUI
 
 Thanks for your interest in contributing! This document explains how to get set up and what we expect from contributions.
 
 ## Getting started
 
-`battery-tui` is a Rust project. The system's apt `cargo` may be too old; install a recent stable toolchain via [rustup](https://rustup.rs):
+`some-batteryui` is a Rust project. The system's apt `cargo` may be too old; install a recent stable toolchain via [rustup](https://rustup.rs):
 
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -35,8 +35,8 @@ Run `cargo fmt` to auto-fix formatting.
 Quick manual smoke test without a battery state change:
 
 ```sh
-./target/release/battery-tui --list   # lists detected batteries
-./target/release/battery-tui          # launch the TUI (q to quit)
+./target/release/some-batteryui --list   # lists detected batteries
+./target/release/some-batteryui          # launch the TUI (q to quit)
 ```
 
 ## Project layout
@@ -61,7 +61,7 @@ Follow [git karma](https://karma-runner.github.io/latest/dev/git-commit-msg.html
 
 ## Reporting bugs and requesting features
 
-Use the issue templates. For bugs, please include the output of `battery-tui --list` and the contents of `/sys/class/power_supply/BAT*/uevent` where relevant — battery sysfs layouts vary across hardware.
+Use the issue templates. For bugs, please include the output of `some-batteryui --list` and the contents of `/sys/class/power_supply/BAT*/uevent` where relevant — battery sysfs layouts vary across hardware.
 
 ## License
 

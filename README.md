@@ -1,4 +1,4 @@
-# battery-tui
+# Some-BatteryUI
 
 [![CI](https://github.com/devsomelife/somelife-batteryui/actions/workflows/ci.yml/badge.svg)](https://github.com/devsomelife/somelife-batteryui/actions/workflows/ci.yml)
 [![Release](https://github.com/devsomelife/somelife-batteryui/actions/workflows/release.yml/badge.svg)](https://github.com/devsomelife/somelife-batteryui/actions/workflows/release.yml)
@@ -22,9 +22,9 @@ History is kept in memory for the session only (no persistence, no daemon).
 Grab the static `x86_64` Linux binary from the [Releases](https://github.com/devsomelife/somelife-batteryui/releases) page. It has no dependencies and runs on any Linux:
 
 ```sh
-curl -L -o battery-tui https://github.com/devsomelife/somelife-batteryui/releases/latest/download/battery-tui-x86_64-linux
-chmod +x battery-tui
-./battery-tui
+curl -L -o some-batteryui https://github.com/devsomelife/somelife-batteryui/releases/latest/download/some-batteryui-x86_64-linux
+chmod +x some-batteryui
+./some-batteryui
 ```
 
 ### Debian / Ubuntu (`.deb`)
@@ -32,8 +32,8 @@ chmod +x battery-tui
 Download the `.deb` from Releases and install it:
 
 ```sh
-sudo apt install ./battery-tui_*_amd64.deb
-battery-tui
+sudo apt install ./some-batteryui_*_amd64.deb
+some-batteryui
 ```
 
 ### Build from source
@@ -42,7 +42,7 @@ Requires a Rust toolchain (`cargo`).
 
 ```sh
 cargo build --release
-./target/release/battery-tui
+./target/release/some-batteryui
 ```
 
 For a fully static, portable binary:
@@ -55,10 +55,10 @@ cargo build --release --target x86_64-unknown-linux-musl
 ## Usage
 
 ```sh
-battery-tui                 # auto-detect first battery, 2s interval
-battery-tui -i 5            # 5-second sample interval
-battery-tui -b BAT1         # select a specific battery
-battery-tui --list          # list available batteries and exit
+some-batteryui                 # auto-detect first battery, 2s interval
+some-batteryui -i 5            # 5-second sample interval
+some-batteryui -b BAT1         # select a specific battery
+some-batteryui --list          # list available batteries and exit
 ```
 
 ## Keys

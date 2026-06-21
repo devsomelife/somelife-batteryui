@@ -34,12 +34,12 @@ fn draw_header(f: &mut Frame, app: &App, area: Rect) {
         .info
         .as_ref()
         .map(|i| i.name.as_str())
-        .unwrap_or("battery-tui");
+        .unwrap_or("Some-BatteryUI");
 
     let tabs = Tabs::new(titles)
         .select(app.tab.index())
         .block(Block::default().borders(Borders::ALL).title(Span::styled(
-            format!(" battery-tui · {name} "),
+            format!(" Some-BatteryUI · {name} "),
             Style::default().add_modifier(Modifier::BOLD),
         )))
         .highlight_style(

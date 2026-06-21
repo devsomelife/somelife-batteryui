@@ -1,5 +1,5 @@
 [package]
-name = "battery-tui"
+name = "some-batteryui"
 version = "0.1.0"
 edition = "2021"
 description = "A 100% terminal battery monitor for Linux (sysfs-based, glances-like TUI)"
@@ -12,7 +12,7 @@ categories = ["command-line-utilities"]
 authors = ["Greg <dev@somelife.eu>"]
 
 [[bin]]
-name = "battery-tui"
+name = "some-batteryui"
 path = "src/main.rs"
 
 [dependencies]
@@ -37,7 +37,7 @@ charts, and raw sysfs fields."""
 section = "utils"
 priority = "optional"
 assets = [
-    ["target/release/battery-tui", "usr/bin/", "755"],
-    ["README.md", "usr/share/doc/battery-tui/README.md", "644"],
-    ["LICENSE", "usr/share/doc/battery-tui/LICENSE", "644"],
+    ["target/release/some-batteryui", "usr/bin/", "755"],
+    ["README.md", "usr/share/doc/some-batteryui/README.md", "644"],
+    ["LICENSE", "usr/share/doc/some-batteryui/LICENSE", "644"],
 ]

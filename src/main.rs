@@ -1,4 +1,4 @@
-//! battery-tui: a terminal battery monitor for Linux, reading sysfs.
+//! Some-BatteryUI: a terminal battery monitor for Linux, reading sysfs.
 
 mod app;
 mod battery;
@@ -28,10 +28,10 @@ struct Cli {
 }
 
 const USAGE: &str = "\
-battery-tui — a 100% terminal battery monitor for Linux (sysfs-based)
+Some-BatteryUI — a 100% terminal battery monitor for Linux (sysfs-based)
 
 USAGE:
-    battery-tui [OPTIONS]
+    some-batteryui [OPTIONS]
 
 OPTIONS:
     -i, --interval <SECS>   Sample interval in seconds, 1-60 (default: 2)
@@ -76,7 +76,7 @@ impl Cli {
                     std::process::exit(0);
                 }
                 "-V" | "--version" => {
-                    println!("battery-tui {}", env!("CARGO_PKG_VERSION"));
+                    println!("some-batteryui {}", env!("CARGO_PKG_VERSION"));
                     std::process::exit(0);
                 }
                 "--list" => cli.list = true,
