@@ -9,7 +9,7 @@ repository = "https://github.com/devsomelife/somelife-batteryui"
 homepage = "https://github.com/devsomelife/somelife-batteryui"
 keywords = ["battery", "tui", "monitor", "sysfs", "terminal"]
 categories = ["command-line-utilities"]
-authors = ["Greg <dev@somelife.eu>"]
+authors = ["Greg <7766567+devsomelife@users.noreply.github.com>"]
 
 [[bin]]
 name = "some-batteryui"
@@ -26,7 +26,7 @@ lto = true
 
 # Debian package metadata, consumed by `cargo deb`.
 [package.metadata.deb]
-maintainer = "Greg <dev@somelife.eu>"
+maintainer = "Greg <7766567+devsomelife@users.noreply.github.com>"
 copyright = "2026 Greg"
 license-file = ["LICENSE", "0"]
 extended-description = """\
