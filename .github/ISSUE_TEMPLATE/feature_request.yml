@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest a new feature or improvement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the use case or the limitation you're hitting.
+      placeholder: I'd like to see battery temperature, but it isn't shown anywhere...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like to happen? Mention which view (Live / History / Details) it belongs in, if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any other approaches you thought about.
+    validations:
+      required: false
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      description: This tool is intentionally minimal (sysfs-only, no daemon, no persistence).
+      options:
+        - label: This can be done by reading `/sys/class/power_supply` (no new daemon or external dependency required)
+          required: false

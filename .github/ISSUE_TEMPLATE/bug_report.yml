@@ -1,0 +1,64 @@
+name: Bug report
+description: Report something that is broken or behaving incorrectly
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Battery sysfs layouts vary a lot across hardware, so the details below help a lot.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug, including what you expected instead.
+      placeholder: When I open the History tab, the power chart stays empty even after a minute...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run `battery-tui -i 1`
+        2. Press `2` to open History
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `battery-tui --version`.
+      placeholder: battery-tui 0.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: install-method
+    attributes:
+      label: How did you install it?
+      options:
+        - Prebuilt binary from Releases
+        - .deb package
+        - Built from source
+    validations:
+      required: true
+  - type: textarea
+    id: battery-info
+    attributes:
+      label: Battery / system info
+      description: |
+        Please paste the output of these commands. They reveal which sysfs fields your hardware exposes.
+      value: |
+        <!-- output of: battery-tui --list -->
+
+        <!-- output of: cat /sys/class/power_supply/BAT*/uevent -->
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error output (if any)
+      description: Any panic message or terminal output. Automatically formatted as code.
+      render: shell

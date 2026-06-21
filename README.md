@@ -1,5 +1,10 @@
 # battery-tui
 
+[![CI](https://github.com/devsomelife/somelife-batteryui/actions/workflows/ci.yml/badge.svg)](https://github.com/devsomelife/somelife-batteryui/actions/workflows/ci.yml)
+[![Release](https://github.com/devsomelife/somelife-batteryui/actions/workflows/release.yml/badge.svg)](https://github.com/devsomelife/somelife-batteryui/actions/workflows/release.yml)
+[![Latest release](https://img.shields.io/github/v/release/devsomelife/somelife-batteryui)](https://github.com/devsomelife/somelife-batteryui/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A 100% terminal battery monitor for Linux (Debian), in the spirit of `glances`/`top`/`ncdu`.
 
 Reads `/sys/class/power_supply` directly (no `upower`, no D-Bus, no root) and renders:

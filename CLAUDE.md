@@ -18,6 +18,8 @@ Requires a Rust toolchain newer than the system's. It was installed via rustup; 
 - Run: `cargo run --release` or `./target/release/battery-tui`
 - The TUI needs a real terminal (alternate screen). Don't run it through a pipe — it won't render and key input won't reach it.
 
+Before pushing, match what CI enforces (it fails on either): `cargo fmt --check` and `cargo clippy --all-targets -- -D warnings`. Run `cargo fmt` to fix formatting.
+
 Non-interactive paths useful for smoke-testing without a TTY:
 - `./target/release/battery-tui --list` — lists batteries, exits
 - `./target/release/battery-tui --help`
@@ -44,3 +46,14 @@ Single-threaded, no async, no background daemon. One event loop drives both inpu
 - sysfs reads are tolerant by design: add new fields with the `read_u64`/`read_string` helpers and treat absence as normal, not an error.
 - ratatui widgets borrow their text. Helper fns that build `Line`/`Span` from `format!` results must take owned `String` (returning `Line<'static>`), not `&str` — passing a `&format!(...)` temporary won't compile.
 - When adding data worth showing, surface it in a view (e.g. the Live `Device` panel) rather than leaving struct fields unread — dead-field warnings are treated as a signal to either display or remove.
+
+## Releases & CI
+
+Repo: `github.com/devsomelife/somelife-batteryui` (`gh` authed as `devsomelife`). Default branch `main`.
+
+- `.github/workflows/ci.yml` — runs `fmt --check`, `clippy -D warnings`, `cargo build --release` on push to `main` and PRs.
+- `.github/workflows/release.yml` — triggered by a `vX.Y.Z` tag. Builds a **static musl** binary (`x86_64-unknown-linux-musl`) and a `.deb` (via `cargo deb`), then uploads both to a GitHub Release.
+
+Cutting a release: bump `version` in `Cargo.toml`, commit, then `git tag vX.Y.Z && git push origin vX.Y.Z`. The workflow does the rest.
+
+The `.deb` is configured under `[package.metadata.deb]` in `Cargo.toml`. `Cargo.lock` is committed (this is a binary, not a library) for reproducible builds. Releases are x86-64 only — add an `aarch64` target to the release matrix if ARM is needed.
