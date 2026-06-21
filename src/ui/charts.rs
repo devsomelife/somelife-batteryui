@@ -59,11 +59,7 @@ fn draw_charge_chart(f: &mut Frame, app: &App, area: Rect) {
             Axis::default()
                 .style(Style::default().fg(Color::DarkGray))
                 .bounds([0.0, 100.0])
-                .labels(vec![
-                    Span::raw("0"),
-                    Span::raw("50"),
-                    Span::raw("100"),
-                ]),
+                .labels(vec![Span::raw("0"), Span::raw("50"), Span::raw("100")]),
         );
     f.render_widget(chart, area);
 }

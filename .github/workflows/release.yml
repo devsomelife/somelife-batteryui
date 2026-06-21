@@ -1,0 +1,53 @@
+name: Release
+
+# Builds a static binary and a .deb on each version tag, then publishes
+# them to a GitHub Release. Trigger by pushing a tag like `v0.1.0`.
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust (stable + musl target)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-musl
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build static musl binary
+        run: cargo build --release --target x86_64-unknown-linux-musl
+
+      - name: Stage binary artifact
+        run: |
+          cp target/x86_64-unknown-linux-musl/release/battery-tui battery-tui-x86_64-linux
+          sha256sum battery-tui-x86_64-linux > battery-tui-x86_64-linux.sha256
+
+      - name: Build .deb package
+        run: |
+          cargo install cargo-deb --locked
+          # cargo-deb reads assets from target/release; reuse the musl binary there.
+          mkdir -p target/release
+          cp target/x86_64-unknown-linux-musl/release/battery-tui target/release/battery-tui
+          cargo deb --no-build --output target/debian/
+
+      - name: Collect .deb
+        run: cp target/debian/*.deb .
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            battery-tui-x86_64-linux
+            battery-tui-x86_64-linux.sha256
+            *.deb
+          generate_release_notes: true

@@ -3,6 +3,13 @@ name = "battery-tui"
 version = "0.1.0"
 edition = "2021"
 description = "A 100% terminal battery monitor for Linux (sysfs-based, glances-like TUI)"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/devsomelife/somelife-batteryui"
+homepage = "https://github.com/devsomelife/somelife-batteryui"
+keywords = ["battery", "tui", "monitor", "sysfs", "terminal"]
+categories = ["command-line-utilities"]
+authors = ["Greg <dev@somelife.eu>"]
 
 [[bin]]
 name = "battery-tui"
@@ -16,3 +23,21 @@ anyhow = "1"
 [profile.release]
 strip = true
 lto = true
+
+# Debian package metadata, consumed by `cargo deb`.
+[package.metadata.deb]
+maintainer = "Greg <dev@somelife.eu>"
+copyright = "2026 Greg"
+license-file = ["LICENSE", "0"]
+extended-description = """\
+A terminal user-interface battery monitor for Linux, in the spirit of glances/top. \
+Reads /sys/class/power_supply directly (no upower, no D-Bus, no root) and shows \
+live charge, power draw, voltage, health, time remaining, in-session history \
+charts, and raw sysfs fields."""
+section = "utils"
+priority = "optional"
+assets = [
+    ["target/release/battery-tui", "usr/bin/", "755"],
+    ["README.md", "usr/share/doc/battery-tui/README.md", "644"],
+    ["LICENSE", "usr/share/doc/battery-tui/LICENSE", "644"],
+]

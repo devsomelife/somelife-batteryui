@@ -10,7 +10,28 @@ Reads `/sys/class/power_supply` directly (no `upower`, no D-Bus, no root) and re
 
 History is kept in memory for the session only (no persistence, no daemon).
 
-## Build
+## Install
+
+### Download a prebuilt binary (no Rust needed)
+
+Grab the static `x86_64` Linux binary from the [Releases](https://github.com/devsomelife/somelife-batteryui/releases) page. It has no dependencies and runs on any Linux:
+
+```sh
+curl -L -o battery-tui https://github.com/devsomelife/somelife-batteryui/releases/latest/download/battery-tui-x86_64-linux
+chmod +x battery-tui
+./battery-tui
+```
+
+### Debian / Ubuntu (`.deb`)
+
+Download the `.deb` from Releases and install it:
+
+```sh
+sudo apt install ./battery-tui_*_amd64.deb
+battery-tui
+```
+
+### Build from source
 
 Requires a Rust toolchain (`cargo`).
 
@@ -19,7 +40,12 @@ cargo build --release
 ./target/release/battery-tui
 ```
 
-Or run directly: `cargo run --release`.
+For a fully static, portable binary:
+
+```sh
+rustup target add x86_64-unknown-linux-musl
+cargo build --release --target x86_64-unknown-linux-musl
+```
 
 ## Usage
 

@@ -38,11 +38,7 @@ fn draw_gauge(f: &mut Frame, info: &BatteryInfo, area: Rect) {
     let pct = info.capacity_pct.unwrap_or(0.0);
     let ratio = (pct / 100.0).clamp(0.0, 1.0);
     let gauge = Gauge::default()
-        .block(
-            Block::default()
-                .borders(Borders::ALL)
-                .title(" Charge "),
-        )
+        .block(Block::default().borders(Borders::ALL).title(" Charge "))
         .gauge_style(Style::default().fg(charge_color(pct)))
         .ratio(ratio)
         .label(format!("{pct:.0}%"));
@@ -86,7 +82,11 @@ fn draw_stats(f: &mut Frame, info: &BatteryInfo, area: Rect) {
     };
 
     let lines = vec![
-        kv("Status", format!("{state_icon} ({})", info.status), state_color),
+        kv(
+            "Status",
+            format!("{state_icon} ({})", info.status),
+            state_color,
+        ),
         kv("Power draw", power, Color::White),
         kv("Voltage", voltage, Color::White),
         kv(remaining_label, remaining, Color::White),
@@ -99,23 +99,20 @@ fn draw_stats(f: &mut Frame, info: &BatteryInfo, area: Rect) {
         ),
     ];
 
-    let p = Paragraph::new(lines).block(
-        Block::default()
-            .borders(Borders::ALL)
-            .title(" Status "),
-    );
+    let p = Paragraph::new(lines).block(Block::default().borders(Borders::ALL).title(" Status "));
     f.render_widget(p, area);
 }
 
 fn draw_device(f: &mut Frame, info: &BatteryInfo, area: Rect) {
     let na = || "n/a".to_string();
-    let cycles = info
-        .cycle_count
-        .map(|c| c.to_string())
-        .unwrap_or_else(na);
+    let cycles = info.cycle_count.map(|c| c.to_string()).unwrap_or_else(na);
 
     let lines = vec![
-        kv("Model", info.model_name.clone().unwrap_or_else(na), Color::White),
+        kv(
+            "Model",
+            info.model_name.clone().unwrap_or_else(na),
+            Color::White,
+        ),
         kv(
             "Manufacturer",
             info.manufacturer.clone().unwrap_or_else(na),
@@ -134,16 +131,14 @@ fn draw_device(f: &mut Frame, info: &BatteryInfo, area: Rect) {
         ),
     ];
 
-    let p = Paragraph::new(lines).block(
-        Block::default()
-            .borders(Borders::ALL)
-            .title(" Device "),
-    );
+    let p = Paragraph::new(lines).block(Block::default().borders(Borders::ALL).title(" Device "));
     f.render_widget(p, area);
 }
 
 fn draw_sparkline(f: &mut Frame, app: &App, area: Rect) {
-    let data = app.history.power_sparkline(area.width.saturating_sub(2) as usize);
+    let data = app
+        .history
+        .power_sparkline(area.width.saturating_sub(2) as usize);
     let title = if data.is_empty() {
         " Power draw (collecting…) ".to_string()
     } else {

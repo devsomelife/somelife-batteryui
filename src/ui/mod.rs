@@ -28,10 +28,7 @@ pub fn draw(f: &mut Frame, app: &App) {
 }
 
 fn draw_header(f: &mut Frame, app: &App, area: Rect) {
-    let titles: Vec<Line> = Tab::ALL
-        .iter()
-        .map(|t| Line::from(t.title()))
-        .collect();
+    let titles: Vec<Line> = Tab::ALL.iter().map(|t| Line::from(t.title())).collect();
 
     let name = app
         .info
@@ -41,14 +38,10 @@ fn draw_header(f: &mut Frame, app: &App, area: Rect) {
 
     let tabs = Tabs::new(titles)
         .select(app.tab.index())
-        .block(
-            Block::default()
-                .borders(Borders::ALL)
-                .title(Span::styled(
-                    format!(" battery-tui · {name} "),
-                    Style::default().add_modifier(Modifier::BOLD),
-                )),
-        )
+        .block(Block::default().borders(Borders::ALL).title(Span::styled(
+            format!(" battery-tui · {name} "),
+            Style::default().add_modifier(Modifier::BOLD),
+        )))
         .highlight_style(
             Style::default()
                 .fg(Color::Black)
@@ -77,7 +70,11 @@ fn draw_body(f: &mut Frame, app: &App, area: Rect) {
 }
 
 fn draw_footer(f: &mut Frame, app: &App, area: Rect) {
-    let pause = if app.paused { "▶ resume" } else { "⏸ pause" };
+    let pause = if app.paused {
+        "▶ resume"
+    } else {
+        "⏸ pause"
+    };
     let spans = Line::from(vec![
         key("q"),
         Span::raw(" quit  "),

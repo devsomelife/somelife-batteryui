@@ -15,14 +15,17 @@ pub fn draw(f: &mut Frame, app: &App, area: Rect) {
         .iter()
         .map(|(k, v)| {
             Row::new(vec![
-                Cell::from(k.clone())
-                    .style(Style::default().fg(Color::Cyan)),
+                Cell::from(k.clone()).style(Style::default().fg(Color::Cyan)),
                 Cell::from(v.clone()).style(Style::default().fg(Color::White)),
             ])
         })
         .collect();
 
-    let title = format!(" Raw sysfs fields · {} ({} entries) ", info.name, rows.len());
+    let title = format!(
+        " Raw sysfs fields · {} ({} entries) ",
+        info.name,
+        rows.len()
+    );
 
     let table = Table::new(rows, [Constraint::Length(24), Constraint::Min(0)])
         .header(
