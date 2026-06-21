@@ -44,7 +44,7 @@ jobs:
         run: cp target/debian/*.deb .
 
       - name: Publish release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             some-batteryui-x86_64-linux
