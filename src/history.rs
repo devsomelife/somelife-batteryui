@@ -10,8 +10,6 @@ pub struct Sample {
     pub elapsed_s: f64,
     pub charge_pct: f64,
     pub power_w: f64,
-    pub voltage_v: f64,
-    pub charging: bool,
 }
 
 pub struct History {
@@ -38,8 +36,6 @@ impl History {
             elapsed_s: self.elapsed_s,
             charge_pct: info.capacity_pct.unwrap_or(0.0),
             power_w: info.power_w.unwrap_or(0.0),
-            voltage_v: info.voltage_v.unwrap_or(0.0),
-            charging: info.is_charging(),
         };
         if self.samples.len() == self.capacity {
             self.samples.pop_front();
@@ -52,16 +48,8 @@ impl History {
         self.elapsed_s = 0.0;
     }
 
-    pub fn is_empty(&self) -> bool {
-        self.samples.is_empty()
-    }
-
     pub fn len(&self) -> usize {
         self.samples.len()
-    }
-
-    pub fn iter(&self) -> impl Iterator<Item = &Sample> {
-        self.samples.iter()
     }
 
     /// Charge % points as (elapsed_s, value) for charting.

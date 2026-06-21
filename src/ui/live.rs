@@ -22,8 +22,15 @@ pub fn draw(f: &mut Frame, app: &App, area: Rect) {
         ])
         .split(area);
 
+    // Side-by-side: live status (left) and static device info (right).
+    let mid = Layout::default()
+        .direction(Direction::Horizontal)
+        .constraints([Constraint::Percentage(55), Constraint::Percentage(45)])
+        .split(chunks[1]);
+
     draw_gauge(f, info, chunks[0]);
-    draw_stats(f, info, chunks[1]);
+    draw_stats(f, info, mid[0]);
+    draw_device(f, info, mid[1]);
     draw_sparkline(f, app, chunks[2]);
 }
 
@@ -79,15 +86,15 @@ fn draw_stats(f: &mut Frame, info: &BatteryInfo, area: Rect) {
     };
 
     let lines = vec![
-        kv("Status", &format!("{state_icon} ({})", info.status), state_color),
-        kv("Power draw", &power, Color::White),
-        kv("Voltage", &voltage, Color::White),
-        kv(remaining_label, &remaining, Color::White),
-        kv("Health", &health, Color::White),
-        kv("AC adapter", ac, Color::White),
+        kv("Status", format!("{state_icon} ({})", info.status), state_color),
+        kv("Power draw", power, Color::White),
+        kv("Voltage", voltage, Color::White),
+        kv(remaining_label, remaining, Color::White),
+        kv("Health", health, Color::White),
+        kv("AC adapter", ac.to_string(), Color::White),
         kv(
             "Capacity level",
-            info.capacity_level.as_deref().unwrap_or("n/a"),
+            info.capacity_level.clone().unwrap_or_else(|| "n/a".into()),
             Color::White,
         ),
     ];
@@ -96,6 +103,41 @@ fn draw_stats(f: &mut Frame, info: &BatteryInfo, area: Rect) {
         Block::default()
             .borders(Borders::ALL)
             .title(" Status "),
+    );
+    f.render_widget(p, area);
+}
+
+fn draw_device(f: &mut Frame, info: &BatteryInfo, area: Rect) {
+    let na = || "n/a".to_string();
+    let cycles = info
+        .cycle_count
+        .map(|c| c.to_string())
+        .unwrap_or_else(na);
+
+    let lines = vec![
+        kv("Model", info.model_name.clone().unwrap_or_else(na), Color::White),
+        kv(
+            "Manufacturer",
+            info.manufacturer.clone().unwrap_or_else(na),
+            Color::White,
+        ),
+        kv(
+            "Technology",
+            info.technology.clone().unwrap_or_else(na),
+            Color::White,
+        ),
+        kv("Cycle count", cycles, Color::White),
+        kv(
+            "Serial",
+            info.serial_number.clone().unwrap_or_else(na),
+            Color::White,
+        ),
+    ];
+
+    let p = Paragraph::new(lines).block(
+        Block::default()
+            .borders(Borders::ALL)
+            .title(" Device "),
     );
     f.render_widget(p, area);
 }
@@ -114,7 +156,7 @@ fn draw_sparkline(f: &mut Frame, app: &App, area: Rect) {
     f.render_widget(spark, area);
 }
 
-fn kv<'a>(key: &'a str, val: &'a str, color: Color) -> Line<'a> {
+fn kv(key: &str, val: String, color: Color) -> Line<'static> {
     Line::from(vec![
         Span::styled(
             format!("{key:<16}"),
@@ -122,6 +164,6 @@ fn kv<'a>(key: &'a str, val: &'a str, color: Color) -> Line<'a> {
                 .fg(Color::DarkGray)
                 .add_modifier(Modifier::BOLD),
         ),
-        Span::styled(val.to_string(), Style::default().fg(color)),
+        Span::styled(val, Style::default().fg(color)),
     ])
 }

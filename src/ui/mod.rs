@@ -20,7 +20,7 @@ pub fn draw(f: &mut Frame, app: &App) {
             Constraint::Min(0),    // body
             Constraint::Length(1), // footer
         ])
-        .split(f.size());
+        .split(f.area());
 
     draw_header(f, app, chunks[0]);
     draw_body(f, app, chunks[1]);
@@ -96,7 +96,7 @@ fn draw_footer(f: &mut Frame, app: &App, area: Rect) {
     );
 }
 
-fn key(k: &str) -> Span {
+fn key(k: &str) -> Span<'_> {
     Span::styled(
         k,
         Style::default()

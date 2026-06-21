@@ -113,12 +113,12 @@ fn draw_power_chart(f: &mut Frame, app: &App, area: Rect) {
 fn draw_stats(f: &mut Frame, app: &App, area: Rect) {
     let s = app.history.stats();
     let line = Line::from(vec![
-        stat("samples", &s.count.to_string()),
-        stat("avg", &format!("{:.2} W", s.avg_w)),
-        stat("min", &format!("{:.2} W", s.min_w)),
-        stat("max", &format!("{:.2} W", s.max_w)),
-        stat("energy", &format!("{:.3} Wh", s.energy_wh)),
-        stat("span", &fmt_secs(app.history.elapsed_s())),
+        stat("samples", s.count.to_string()),
+        stat("avg", format!("{:.2} W", s.avg_w)),
+        stat("min", format!("{:.2} W", s.min_w)),
+        stat("max", format!("{:.2} W", s.max_w)),
+        stat("energy", format!("{:.3} Wh", s.energy_wh)),
+        stat("span", fmt_secs(app.history.elapsed_s())),
     ]);
     let p = Paragraph::new(line).block(
         Block::default()
@@ -128,7 +128,7 @@ fn draw_stats(f: &mut Frame, app: &App, area: Rect) {
     f.render_widget(p, area);
 }
 
-fn stat<'a>(label: &'a str, val: &'a str) -> Span<'a> {
+fn stat(label: &str, val: String) -> Span<'static> {
     Span::styled(
         format!("  {label}: {val} "),
         Style::default().add_modifier(Modifier::BOLD),
